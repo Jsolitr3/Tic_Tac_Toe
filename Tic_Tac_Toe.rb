@@ -84,7 +84,7 @@ class Games
   def winner(player)
     if rowAndColumnCheck? || diagonalCheck?
       playerWin(@player[@@turn % 2][:name])
-    elsif @@turn == 8
+    elsif @@turn >= 8
       tieGame
     end
   end
@@ -129,7 +129,7 @@ class Games
       displayBoard
       takeTurn
       winner(@player[@@turn % 2][:character])
-      @@turn += 1
+      @@turn += 1 
     end
     playAgain
   end
@@ -142,35 +142,29 @@ class Games
       puts answer
       if answer == "y"
         createGame
-        puts ""
-        puts ""
-        puts ""
-        puts ""
+        blank_line(8)
         startGame
         break
       elsif answer =="n"
-        puts "Thank you for playing! Refresh the page to play again."
+        puts "Thank you for playing!" #Refresh the page to play again."
         break
       end
     end
   end
 
   def displayBoard
-    puts ""
+    blank_line
     puts " #{@Board[0][0][:key]} | #{@Board[0][1][:key]} | #{@Board[0][2][:key]} "
     puts "---+---+---"
     puts " #{@Board[1][0][:key]} | #{@Board[1][1][:key]} | #{@Board[1][2][:key]} "
     puts "---+---+---"
     puts " #{@Board[2][0][:key]} | #{@Board[2][1][:key]} | #{@Board[2][2][:key]} "
-    puts ""
+    blank_line
   end
 
   def playerWin (player)
     @gameOver = true
-    puts ""
-    puts ""
-    puts ""
-    puts ""
+    blank_line(8)
     displayBoard
     puts "#{player} wins!"
     puts ""
@@ -178,9 +172,17 @@ class Games
 
   def tieGame
     @gameOver = true
-    "It's a tie!"
+    blank_line(8)
+    displayBoard
+    puts "It's a tie!"
+    playAgain
   end
 
+  def blank_line(number = 1)
+    number.times do
+      puts ""
+    end
+  end
 end
 
 games = Games.new()
